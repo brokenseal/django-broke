@@ -1,5 +1,6 @@
 from django import http
 from django.core import serializers
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
 from . import settings
@@ -52,10 +53,10 @@ def data(request, app_label, model_name=None, pk=None):
         data.setdefault(model_name, data_set)
 
     return encoder(data)
-        
-def meta_data(request, app_label, model_name=None):
+    
+def _get_meta_data(app_label, model_name=None):
     """
-        Retrieve models description
+        Retrieve models meta data
     """
     models= registered_models.get(app_label, None)
 
@@ -74,5 +75,12 @@ def meta_data(request, app_label, model_name=None):
             _meta_data.setdefault(field.name, field.__class__.__name__)
 
         meta_data.setdefault(model.__name__, _meta_data)
-        
-    return encoder(meta_data)
+
+    return meta_data
+
+def meta_data(request, app_label, model_name=None):
+    return encoder(_get_meta_data(app_label, model_name))
+
+def render_models_meta_data(app_label, model_name= None, apps_namespace= ''):
+    app_models= _get_meta_data(app_label, model_name)
+    return render_to_string('broke/models_meta_data.html', locals())

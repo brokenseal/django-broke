@@ -1,0 +1,14 @@
+(function(context, undefined){
+    var
+        appsNamespace= {% if apps_namespace %}context[{{ apps_namespace }}]{% else %}context{% endif %}
+    ;
+    
+    {% for app in app_models.items %}
+        context[{{ app.0 }}]= context[{{ app.0 }}] || {};
+        context[{{ app.0 }}].models= context[{{ app.0 }}].models || {};
+        
+        {% for model in app.1 %}
+            context[{{ app.0 }}].models[model.1]= {{ model.2 }};
+        {% endfor %}
+    {% endfor %}
+})(this);
