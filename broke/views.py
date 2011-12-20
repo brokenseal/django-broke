@@ -16,7 +16,7 @@ def root(request):
         pass
         
 
-def data(request, app_label, model_name=None, pk=None):
+def data(request, app_label, model_name=None, pk=None, filter_kwargs=None, exclude_kwargs=None):
     """
         Retrieve data based on the app or the model or just for a single model instance
         It's possible to filter results using the DEFAULT_MANAGER and MODEL_MANAGERS settings
@@ -42,6 +42,11 @@ def data(request, app_label, model_name=None, pk=None):
         manager= getattr(model, manager_name)
 
         # retrieve data
+        if filter_kwargs is not None:
+            manager = manager.filter(**filter_kwargs)
+        if exclude_kwargs is not None:
+            manager = manager.exclude(**exclude_kwargs)
+
         if pk is None:
             data_set= manager.all()
         else:
