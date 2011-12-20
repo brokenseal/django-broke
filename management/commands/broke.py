@@ -1,10 +1,6 @@
-import os, sys
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
-from django.conf import settings
-from south.migration import Migrations
-from south.creator import freezer
 
 from broke.registration import registered_models
 
@@ -15,7 +11,7 @@ class Command(BaseCommand):
     )
 
     help="Create a js file with all the registered models."
-    args="[apps] --tenant=[tenant]"
+    args="[app1 app2 app3 ... appn]"
 
     def handle(self, *args, **options):
 
@@ -23,4 +19,3 @@ class Command(BaseCommand):
             apps= registered_models
         else:
             apps = [ app for app in registered_models if app in args ]
-        

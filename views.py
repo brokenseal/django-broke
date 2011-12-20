@@ -81,6 +81,6 @@ def _get_meta_data(app_label, model_name=None):
 def meta_data(request, app_label, model_name=None):
     return encoder(_get_meta_data(app_label, model_name))
 
-def render_models_meta_data(app_label, model_name= None, apps_namespace= ''):
+def render_models_meta_data(app_label, model_name=None, apps_namespace=''):
     app_models= _get_meta_data(app_label, model_name)
     return render_to_string('broke/models_meta_data.html', locals())

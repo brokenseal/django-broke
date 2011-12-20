@@ -17,8 +17,7 @@ BROKE_DEFAULTS= {
 }
 
 # merge default settings with user's settings
-BROKE_DEFAULTS.extend(settings.BROKE or {})
+BROKE_DEFAULTS.update(settings.BROKE or {})
 
-DEFAULT_MANAGER= BROKE_DEFAULTS.get('DEFAULT_MANAGER')
-MODEL_MANAGERS= BROKE_DEFAULTS.get('MODEL_MANAGERS')
-ENCODER= BROKE_DEFAULTS.get('ENCODER')
+# update local module scope with broke specific settings
+locals().update(BROKE_DEFAULTS)
