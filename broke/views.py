@@ -3,8 +3,8 @@ from django.core import serializers
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
-from . import settings
-from .registration import registered_models
+from .broke.registration import registered_models
+from broke import settings
 
 
 encoder= serializers.get_serializer(settings.ENCODER)
