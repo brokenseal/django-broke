@@ -59,7 +59,7 @@ def data(request, app_label, model_name=None, pk=None, filter_kwargs=None, exclu
             data_set= manager.all()
         else:
             try:
-                data_set= (manager.filter(pk=pk),)
+                data_set= manager.filter(pk=pk)
             except model.DoesNotExist:
                 raise http.Http404
                     
