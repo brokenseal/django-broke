@@ -63,7 +63,7 @@ def data(request, app_label, model_name=None, pk=None, filter_kwargs=None, exclu
                     
         data.setdefault(model_name, data_set)
 
-    return encoder(data)
+    return encoder().serialize(data)
     
 def _get_meta_data(app_label, model_name=None):
     """
