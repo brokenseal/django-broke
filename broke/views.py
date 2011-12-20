@@ -31,7 +31,7 @@ def data(request, app_label, model_name=None, pk=None, filter_kwargs=None, exclu
     
     if model_name is not None:
         # retrieve the correct model
-        models= [ model for model in models if model.__name__ == model_name ]
+        models= [ model for model in models if model.__name__.lower() == model_name ]
         
     data= {}
     default_manager_name= settings.DEFAULT_MANAGER
