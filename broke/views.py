@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
 from .broke.registration import registered_models
-from broke import settings
+from broke import settings, managers
 
 
 encoder= serializers.get_serializer(settings.ENCODER)
@@ -40,6 +40,11 @@ def data(request, app_label, model_name=None, pk=None, filter_kwargs=None, exclu
         # get manager name
         manager_name= settings.MODEL_MANAGERS.get(model_id, default_manager_name)
         manager= getattr(model, manager_name)
+
+        # if the manager is an instance of BrokeManager, allow filtering based on some computation
+        # around the request object
+        if isinstance(manager, managers.BrokeManager):
+            manager = manager.filter_based_on_request(request)
 
         # retrieve data
         if filter_kwargs is not None:
