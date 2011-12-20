@@ -7,4 +7,4 @@ def register(model):
     if not registered_models.has_key(app_label):
         registered_models.setdefault(app_label, [])
 
-    registered_models[app_label].push(model)
+    registered_models[app_label].append(model)
