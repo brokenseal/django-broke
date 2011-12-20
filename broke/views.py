@@ -1,3 +1,5 @@
+import json
+
 from django import http
 from django.core import serializers
 from django.template.loader import render_to_string
@@ -7,7 +9,7 @@ from broke.registration import registered_models
 from broke import settings, managers
 
 
-encoder= serializers.get_serializer(settings.ENCODER)
+encoder= serializers.get_serializer(settings.ENCODER)()
 Http400= http.HttpResponseBadRequest(ugettext("There are no registered models on this app."))
 
 
@@ -61,9 +63,9 @@ def data(request, app_label, model_name=None, pk=None, filter_kwargs=None, exclu
             except model.DoesNotExist:
                 raise http.Http404
                     
-        data.setdefault(model_name, data_set)
+        data.setdefault(model_name, encoder.serialize(data_set))
 
-    return encoder().serialize(data)
+    return json.dumps(data)
     
 def _get_meta_data(app_label, model_name=None):
     """
