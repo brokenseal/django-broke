@@ -65,7 +65,7 @@ def data(request, app_label, model_name=None, pk=None, filter_kwargs=None, exclu
                     
         data.setdefault(model_name, encoder.serialize(data_set))
 
-    return json.dumps(data)
+    return http.HttpResponse(json.dumps(data), mimetype="application/json")
     
 def _get_meta_data(app_label, model_name=None):
     """
