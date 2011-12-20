@@ -2,7 +2,7 @@ from django.conf.urls.defaults import patterns, url
 
 
 urlpatterns= patterns('broke.views',
-    url(r'^/$', 'root', {}, 'broke-root'),
+    url(r'^$', 'root', {}, 'broke-root'),
 
     # data urls
     url(r'^data/(?P<app_label>\w)/$', 'data', {}, 'broke-data-app'),

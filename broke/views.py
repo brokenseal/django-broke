@@ -14,7 +14,8 @@ Http400= http.HttpResponseBadRequest(ugettext("There are no registered models on
 def root(request):
     for app_label, models in registered_models:
         pass
-        
+
+    return Http400
 
 def data(request, app_label, model_name=None, pk=None, filter_kwargs=None, exclude_kwargs=None):
     """
