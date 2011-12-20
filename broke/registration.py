@@ -8,3 +8,5 @@ def register(model):
         registered_models.setdefault(app_label, [])
 
     registered_models[app_label].append(model)
+
+    return model
