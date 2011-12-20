@@ -3,7 +3,7 @@ from django.core import serializers
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
-from .broke.registration import registered_models
+from broke.registration import registered_models
 from broke import settings, managers
 
 
